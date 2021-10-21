@@ -1,0 +1,196 @@
+1606
+THE TRAGEDY OF MACBETH
+
+
+by William Shakespeare
+
+
+
+Dramatis Personae
+
+  DUNCAN, King of Scotland
+  MACBETH, Thane of Glamis and Cawdor, a general in the King's
+army
+  LADY MACBETH, his wife
+  MACDUFF, Thane of Fife, a nobleman of Scotland
+  LADY MACDUFF, his wife
+  MALCOLM, elder son of Duncan
+  DONALBAIN, younger son of Duncan
+  BANQUO, Thane of Lochaber, a general in the King's army
+  FLEANCE, his son
+  LENNOX, nobleman of Scotland
+  ROSS, nobleman of Scotland
+  MENTEITH nobleman of Scotland
+  ANGUS, nobleman of Scotland
+  CAITHNESS, nobleman of Scotland
+  SIWARD, Earl of Northumberland, general of the English forces
+  YOUNG SIWARD, his son
+  SEYTON, attendant to Macbeth
+  HECATE, Queen of the Witches
+  The Three Witches
+  Boy, Son of Macduff 
+  Gentlewoman attending on Lady Macbeth
+  An English Doctor
+  A Scottish Doctor
+  A Sergeant
+  A Porter
+  An Old Man
+  The Ghost of Banquo and other Apparitions
+  Lords, Gentlemen, Officers, Soldiers, Murtherers, Attendants,
+     and Messengers
+
+
+
+
+<<THIS ELECTRONIC VERSION OF THE COMPLETE WORKS OF WILLIAM
+SHAKESPEARE IS COPYRIGHT 1990-1993 BY WORLD LIBRARY, INC., AND IS
+PROVIDED BY PROJECT GUTENBERG ETEXT OF CARNEGIE MELLON UNIVERSITY
+WITH PERMISSION.  ELECTRONIC AND MACHINE READABLE COPIES MAY BE
+DISTRIBUTED SO LONG AS SUCH COPIES (1) ARE FOR YOUR OR OTHERS
+PERSONAL USE ONLY, AND (2) ARE NOT DISTRIBUTED OR USED
+COMMERCIALLY.  PROHIBITED COMMERCIAL DISTRIBUTION INCLUDES BY ANY
+SERVICE THAT CHARGES FOR DOWNLOAD TIME OR FOR MEMBERSHIP.>>
+
+
+
+SCENE: Scotland and England
+
+
+ACT I. SCENE I.
+A desert place. Thunder and lightning.
+
+Enter three Witches.
+
+  FIRST WITCH. When shall we three meet again?
+    In thunder, lightning, or in rain?
+  SECOND WITCH. When the hurlyburly's done,
+    When the battle's lost and won.
+  THIRD WITCH. That will be ere the set of sun.
+  FIRST WITCH. Where the place?
+  SECOND WITCH. Upon the heath.
+  THIRD WITCH. There to meet with Macbeth.
+  FIRST WITCH. I come, Graymalkin.
+  ALL. Paddock calls. Anon!
+    Fair is foul, and foul is fair.
+    Hover through the fog and filthy air.                Exeunt.
+
+
+
+
+SCENE II.
+A camp near Forres. Alarum within.
+
+Enter Duncan, Malcolm, Donalbain, Lennox, with Attendants,
+meeting a bleeding Sergeant.
+
+  DUNCAN. What bloody man is that? He can report,
+    As seemeth by his plight, of the revolt
+    The newest state.
+  MALCOLM. This is the sergeant
+    Who like a good and hardy soldier fought
+    'Gainst my captivity. Hail, brave friend!
+    Say to the King the knowledge of the broil
+    As thou didst leave it.
+  SERGEANT. Doubtful it stood,
+    As two spent swimmers that do cling together
+    And choke their art. The merciless Macdonwald-
+    Worthy to be a rebel, for to that
+    The multiplying villainies of nature
+    Do swarm upon him -from the Western Isles
+    Of kerns and gallowglasses is supplied;
+    And Fortune, on his damned quarrel smiling, 
+    Show'd like a rebel's whore. But all's too weak;
+    For brave Macbeth -well he deserves that name-
+    Disdaining Fortune, with his brandish'd steel,
+    Which smoked with bloody execution,
+    Like Valor's minion carved out his passage
+    Till he faced the slave,
+    Which ne'er shook hands, nor bade farewell to him,
+    Till he unseam'd him from the nave to the chaps,
+    And fix'd his head upon our battlements.
+  DUNCAN. O valiant cousin! Worthy gentleman!
+  SERGEANT. As whence the sun 'gins his reflection
+    Shipwrecking storms and direful thunders break,
+    So from that spring whence comfort seem'd to come
+    Discomfort swells. Mark, King of Scotland, mark.
+    No sooner justice had, with valor arm'd,
+    Compell'd these skipping kerns to trust their heels,
+    But the Norweyan lord, surveying vantage,
+    With furbish'd arms and new supplies of men,
+    Began a fresh assault.
+  DUNCAN. Dismay'd not this 
+    Our captains, Macbeth and Banquo.?
+  SERGEANT. Yes,
+    As sparrows eagles, or the hare the lion.
+    If I say sooth, I must report they were
+    As cannons overcharged with double cracks,
+    So they
+    Doubly redoubled strokes upon the foe.
+    Except they meant to bathe in reeking wounds,
+    Or memorize another Golgotha,
+    I cannot tell-
+    But I am faint; my gashes cry for help.
+  DUNCAN. So well thy words become thee as thy wounds;
+    They smack of honor both. Go get him surgeons.
+                                        Exit Sergeant, attended.
+    Who comes here?
+
+                       Enter Ross.
+
+  MALCOLM The worthy Thane of Ross.
+  LENNOX. What a haste looks through his eyes! So should he look 
+    That seems to speak things strange.
+  ROSS. God save the King!
+  DUNCAN. Whence camest thou, worthy Thane?
+  ROSS. From Fife, great King,
+    Where the Norweyan banners flout the sky
+    And fan our people cold.
+    Norway himself, with terrible numbers,
+    Assisted by that most disloyal traitor
+    The Thane of Cawdor, began a dismal conflict,
+    Till that Bellona's bridegroom, lapp'd in proof,
+    Confronted him with self-comparisons,
+    Point against point rebellious, arm 'gainst arm,
+    Curbing his lavish spirit; and, to conclude,
+    The victory fell on us.
+  DUNCAN. Great happiness!
+  ROSS. That now
+    Sweno, the Norways' king, craves composition;
+    Nor would we deign him burial of his men
+    Till he disbursed, at Saint Colme's Inch,
+    Ten thousand dollars to our general use. 
+  DUNCAN. No more that Thane of Cawdor shall deceive
+    Our bosom interest. Go pronounce his present death,
+    And with his former title greet Macbeth.
+  ROSS. I'll see it done.
+  DUNCAN. What he hath lost, noble Macbeth hath won.
+                                                         Exeunt.
+
+    And we'll not fail. When Duncan is asleep-
+    Whereto the rather shall his day's hard journey
+    Soundly invite him- his two chamberlains
+    Will I with wine and wassail so convince
+    That memory, the warder of the brain, 
+    Shall be a fume and the receipt of reason
+    A limbeck only. When in swinish sleep
+    Their drenched natures lie as in a death,
+    What cannot you and I perform upon
+    The unguarded Duncan? What not put upon
+    His spongy officers, who shall bear the guilt
+    Of our great quell?
+  MACBETH. Bring forth men-children only,
+    For thy undaunted mettle should compose
+    Nothing but males. Will it not be received,
+    When we have mark'd with blood those sleepy two
+    Of his own chamber and used their very daggers,
+    That they have done't?
+  LADY MACBETH. Who dares receive it other,
+    As we shall make our griefs and clamor roar
+    Upon his death?
+  MACBETH. I am settled and bend up
+    Each corporal agent to this terrible feat.
+    Away, and mock the time with fairest show:
+    False face must hide what the false heart doth know. 
+                                                         Exeunt
+
+
