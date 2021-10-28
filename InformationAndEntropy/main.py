@@ -25,9 +25,9 @@ def stats(filename):
     # amount of information
     pe = v/chars
     p = 1/pe
-    ie = math.log(p,2) * 8 # to be verified amount of bits in logarithm base
+    ie = math.log(p,2) #* 8 # to be verified amount of bits in logarithm base
     ie_bin = math.log(p,2)/math.log(2*8,2) # logarithm transformed to base 2
-    print(str(k) + " ie = " + str(ie))
+    print(str(k) + " ie = " + str("{:.2f}".format(round(ie, 2))))
     
     # entropy
     hxi = pe * ie
@@ -36,7 +36,7 @@ def stats(filename):
     # checksum for probability
     sum += pe
 
-  print(entropy)
+  print("{:.2f}".format(round(entropy, 2)))
   print(sum)
   print("\n")
 
