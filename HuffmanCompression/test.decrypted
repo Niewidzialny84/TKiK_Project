@@ -1,1 +1,84 @@
-aaaaaaaaaaaaaaabcaaaaaaaaaaaaaaaaaa
+6.5.6. Zwalnianie połączenia TCP
+Mimo iż połączenia TCP są połączeniami pełnodupleksowymi, rozpatrując ich zwalnianie,
+korzystnie jest traktować każde z nich jako nałożenie dwóch połączeń simpleksowych
+(jednokierunkowych); każde z tych jednokierunkowych połączeń jest bowiem zwalnianie
+niezależnie od drugiego. Host żądający zwolnienia połączenia wysyła segment z ustawionym
+znacznikiem FIN, informując partnera, że nie będzie już wysyłał żadnych danych;
+gdy segment ten zostanie potwierdzony, połączenie w jednym kierunku zostanie zamSEK.
+6.5. INTERNETOWE PROTOKOŁY TRANSPORTOWE — TCP 617
+knięte. W drugim kierunku dane mogą jednak w dalszym ciągu przepływać, z czym host
+wysyłający segment FIN musi się liczyć. Zwolnienie połączenia następuje dopiero po
+zamknięciu jego obydwu kierunków. Normalnie do zwolnienia połączenia konieczna jest
+wymiana czterech segmentów, po jednym segmencie FIN i ACK w każdym kierunku.
+Możliwe jest jednak „zapakowanie” do wspólnego segmentu pierwszego ACK i drugiego
+FIN, wtedy liczba wymienianych segmentów redukuje się do trzech.
+Podobnie jak w przypadku zwykłej rozmowy telefonicznej, kiedy obydwaj rozmówcy
+równocześnie odkładają słuchawkę, obydwa połączone hosty mogąjednocześnie zażądać
+rozłączenia. Jednoczesność ta nie ma jednak większego znaczenia: w obydwu kierunkach
+wysłane zostają segmenty FIN i każdy z nich podlega niezależnemu potwierdzeniu.
+W efekcie obydwa kierunki połączenia zostają zamknięte i ostatecznie połączenie zostaje
+zwolnione.
+Aby uniknąć „problemu dwóch armii”, opisanego w punkcie 6.2.3, wykorzystuje się
+stopery. Równocześnie z wysłaniem segmentu FIN uruchamia się stoper odmierzający
+czas równy dwukrotności maksymalnego czasu życia pakietu w sieci; jeżeli mimo
+upływu tego czasu segment nie zostanie potwierdzony, host wysyłający zwalnia połączenie
+z własnej inicjatywy. Jego partner po pewnym czasie stwierdzi brak reakcji
+z drugiej strony i na skutek przeterminowania także się rozłączy. Mimo iż rozwiązanie
+to nie jest idealne (czy w ogóle istnieją idealne rozwiązania w naszym niedoskonałym
+świecie?), w praktyce okazuje się zadowalające; poza tym zagubienie pakietu FIN nie
+zdarza się przecież co chwilę.
+6.5.7. Model TCP zarządzania połączeniami
+Scenariusz poszczególnych czynności prowadzących do nawiązywania i zwalniania połączeń
+może być reprezentowany w postaci automatu skończonego, przyjmującego 11 różnych
+stanów opisanych w tabeli 6.6. W każdym z tych stanów dopuszczony jest pewien
+zestaw zdarzeń; wystąpienie zdarzenia z tego zestawu może powodować podjęcie
+pewnej akcji, wystąpienie zdarzenia niedozwolonego (o ile w ogóle możliwe) oznacza
+po prostu błąd protokołu.
+Na początku każde połączenie znajduje się w stanie CLOSE. Połączenie wychodzi z tego
+stanu, wykonując otwarcie pasywne (LISTEN) albo aktywne (CONNECT). Gdy druga strona
+wykona odpowiednią akcję komplementarną, połączenie zostaje nawiązane, co oznacza
+jego stan ESTABLISHED. Zwalnianie połączenia może być inicjowane przez każdą ze stron;
+gdy zwalnianie się zakończy, połączenie powraca do stanu CLOSED.
+Wspomniany automat skończony zilustrowany jest w postaci diagramu przejść na
+rysunku 6.32. Zwyczajowy przebieg przyłączania się aktywnego klienta do pasywnego
+serwera przedstawiony został za pomocą linii pogrubionych — ciągłych dla klienta,
+kropkowanych dla serwera. Cienkie linie reprezentują sytuacje wyjątkowe. Każda linia
+etykietowana jest parą (;zdarzenie, akcja)] zdarzeniem może być wywołanie przez użytkownika
+prymitywu (CONNECT, LISTEN, SEND lub CLOSE), przybycie segmentu (SYN, FIN,
+ACK lub RST) i (w jednym przypadku) przekroczenie limitu czasu oczekiwania (limit ten
+równy jest dwukrotności maksymalnego czasu życia pakietu). Akcja może oznaczać
+wysianie segmentu sterującego (SYN, FIN lub RST) lub po prostu bezczynność, co sugerowane
+jest przez myślnik (—). Towarzyszące diagramowi komentarze umieszczone
+są w nawiasach.
+Aby lepiej zrozumieć przedstawiony diagram, wystarczy podążać najpierw wzdłuż
+ciągłych, pogrubionych linii reprezentujących ścieżkę klienta, a następnie wzdłuż linii
+kropkowanych reprezentujących ścieżkę serwera. Gdy aplikacja na maszynie klienta
+wywołuje prymityw CONNECT, lokalna jednostka TCP tworzy rekord połączeniowy (co
+oznacza przejście do stanu SYN SENT) i wysyła go w postaci segmentu SYN. Zauważmy,
+że w danej chwili aplikacja kliencka może korzystać z wielu połączeń; każde z nich posiada
+wówczas swój własny stan. Po otrzymaniu przez klienta potwierdzenia (segment SYN
++ ACK) połączenie przechodzi do stanu ESTABLISHED — w tym stanie normalnie odbywa
+się transmisja danych.
+Gdy aplikacja skończy wysyłanie danych i zamierza zamknąć połączenie, wywołuje
+prymityw CLOSE, w wyniku czego lokalna encja TCP wysyła segment FIN i oczekuje na
+potwierdzenie (segment ACK) (obszar ograniczony linią przerywaną związany jest z aktywnym
+zamykaniem połączenia). Oczekiwanie to odbywa się w stanie FIN WAIT 1. Gdy
+oczekiwany segment ACK zostanie odebrany, następuje zamknięcie jednego kierunku
+połączenia, które tym samym przechodzi do stanu FIN WAIT 2 oznaczającego oczekiwanie
+na segment FIN z drugiej strony. Gdy segment ten przybędzie, połączenie zostanie
+zwolnione; nasz automat znajdzie się w stanie TIME WAIT oznaczającym oczekiwanie na
+wygaśnięcie ewentualnych błądzących po sieci segmentów związanych z zamkniętym
+właśnie połączeniem. Po upływie tego czasu wszelkie zasoby związane z połączeniem
+są ostatecznie zwalniane i automat wraca do stanu wyjściowego.
+Z punktu widzenia serwera sytuacja wygląda następująco: wywołuje on prymityw
+LI STEN, przechodząc do stanu LI STEN oznaczającego nasłuchiwanie. Przybycie segmentu
+SYN powoduje przejście do drugiego etapu negocjowania trójstopniowego (stan SYN RCVD);
+wysłanie potwierdzenia (segment ACK) przenosi automat do stanu ESTABLISHED.
+Gdy klient, zamierzając zamknąć połączenie, wywoła prymityw CLOSE, spowoduje
+to wysłanie do serwera segmentu FIN (obszar ograniczony linią przerywaną związany
+jest z pasywnym zamykaniem połączenia). Serwer otrzymuje sygnał i także wywoła
+620 WARSTWA TRANSPORTOWA ROZ. 6
+prymityw CLOSE, w wyniku czego klient także otrzyma segm en t FIN; s e rw e r przejdzie
+w stan oczekiwania na potwierdzenie (LAST ACK) — gdy je otrzyma, spowoduje o sta te
+czne zwolnienie wszystkich zasobów związanych z połączeniem (i przejście do stanu
+wyjściowego — CLOSED).

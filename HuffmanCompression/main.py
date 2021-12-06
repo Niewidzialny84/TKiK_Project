@@ -87,7 +87,6 @@ class HuffmanTree:
 
     def _encode(self, node: Node, val='') -> None:
         newVal = val + str(node.huff)
-        print(node.symbol)
 
         if node.left:
             node.left.huff = '0'
@@ -134,36 +133,42 @@ class HuffmanTree:
 
         with open(target, 'wb') as file:
             logger.info("Writing Header")
-            file.write(self._toBytes(self._createHeader().encode()))
+            h = (self._createHeader().encode())
+            print(h)
+            
+            file.write((len(h).to_bytes(4, byteorder='little')))
+
+            encrypted = self._encryptFileText(self._getFileText(source))
 
             logger.info("Writing Encoded Chars")
-            encrypted = self._encryptFileText(self._getFileText(source))
+            pad = (8 - (len(encrypted) % 8)).to_bytes(1, byteorder='little')
+            file.write(pad)
             
-            pad = str((8 - len(encrypted) % 8)) + self.HEADER_ESCAPE
-            p = ''
-            for c in pad:
-                p += "{0:b}".format(ord(c)).zfill(8)
+            file.write(h)
 
-            file.write(self._toBytes(p.encode()))
+            #file.write(self._toBytes(p.encode()))
 
             encrypted += (8 - len(encrypted) % 8) * '1'
             encrypted = self._toBytes(encrypted)
             
             logger.info("Saving file")
             file.write(encrypted)
+            
+            logger.info("Header len: " + str(len(h)) + " Padding: " + str(pad))
 
     def _createHeader(self) -> str:
         logger.info("Creating Header")
 
         self.header = ''
         self._traverseDown(self.root)
-        self.header += self.HEADER_ESCAPE
+        #self.header += self.HEADER_ESCAPE
 
-        encoded = ''
-        for c in self.header:
-            encoded += "{0:b}".format(ord(c)).zfill(8)
+        # encoded = ''
+        # for c in self.header:
+        #     encoded += "{0:b}".format(ord(c)).zfill(8)
 
-        return encoded
+        # return encoded
+        return self.header
         
     def _traverseDown(self, node: Node, val='') -> str:
         if node is None:
@@ -193,23 +198,6 @@ class HuffmanTree:
             node.left = self._traverseUp()
             node.right = self._traverseUp()
             return node
-
-        #print(self.header)
-        # FIXME: i dont know but this does not work
-        # if self.header == '':
-        #     return None
-        # else:
-        #     node = Node(0, 'aa')
-        #     if self.header[0] == self.DEFAULT_VALUE_NODE:
-        #         node.symbol = self.DEFAULT_VALUE_NODE * 3    
-        #     elif self.header[0] == self.DEFAULT_VALUE:
-        #         node.symbol = self.DEFAULT_VALUE * 3
-        #     else:
-        #         node.symbol = self.header[0]
-        #     self.header = self.header[1:]
-        #     node.left = self._traverseUp()
-        #     node.right = self._traverseUp()
-        #     return node
 
     def _readEncrypted(self, fileName: str) -> bytes:
         logger.info("Reading Encrypted File")
@@ -243,32 +231,42 @@ class HuffmanTree:
 
         data = self._readEncrypted(source)
 
+        h = data[:4]
+        h = int.from_bytes(h, byteorder='little')
+
         logger.info("Decrypting Header")
-        self.header = ''
-        for b in data:
-            c = chr(b)
-            if c == self.HEADER_ESCAPE:
-                break
-            self.header += c
+
+        self.header = data[5:4+h+1]
+        self.header = self.header.decode("utf-8")
+        print(self.header)
+        # for b in data:
+        #     c = chr(b)
+        #     if c == self.HEADER_ESCAPE:
+        #         break
+        #     self.header += c
         
         #self.header = self.header[1:]
-        data = data[(len(self.header)+1):]
+        pad = data[4]
+
+        logger.info("Header len: " + str(h) + " Padding: " + str(pad))
+        data = data[5+h:]
+
         self.root = Node(0, 'aa')
         self.root = self._traverseUp()
         self.encode()
 
         self.printEncoded()
 
-        pad = ''
-        for b in data:
-            c = chr(b)
-            if c == self.HEADER_ESCAPE:
-                break
-            pad += c
-        data = data[(len(pad)+1):]
+        # for b in data:
+        #     c = chr(b)
+        #     if c == self.HEADER_ESCAPE:
+        #         break
+        #     pad += c
+        #data = data[pad:]
+        #print(data)
 
         logger.info("Decrypting Encoded Chars")
-        decoded = self._reverse_encoding(data, int(pad))
+        decoded = self._reverse_encoding(data, pad)
 
         logger.info("Saving to File")
         with open(target, 'w', encoding='utf-8') as file:
@@ -314,6 +312,6 @@ def main():
         print("Invalid number of arguments")
 
 if __name__ == '__main__':
-    #main()
-    encodeFile('test.txt', 'test.huff')
-    decodeFile('test.huff', 'test.decrypted')
+    main()
+    # encodeFile('test.txt', 'test.huff')
+    # decodeFile('test.huff', 'test.decrypted')
