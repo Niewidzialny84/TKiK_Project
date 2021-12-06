@@ -86,16 +86,16 @@ class HuffmanTree:
         self._encode(self.root, '')
 
     def _encode(self, node: Node, val='') -> None:
-        newVal = val
+        newVal = val + str(node.huff)
         print(node.symbol)
 
         if node.left:
-            newVal += '0'
-            node.huff = '0'
+            node.left.huff = '0'
+            newVal = val + str(node.huff)
             self._encode(node.left, newVal)
         if node.right :
-            newVal += '1'
-            node.huff = '1'
+            node.right.huff = '1'
+            newVal = val + str(node.huff)
             self._encode(node.right, newVal)
 
         if (not node.left and not node.right and len(node.symbol) == 1) or len(node.symbol) == 1:
@@ -167,7 +167,7 @@ class HuffmanTree:
         
     def _traverseDown(self, node: Node, val='') -> str:
         if node is None:
-            self.header += self.DEFAULT_VALUE
+            #self.header += self.DEFAULT_VALUE
             return
         else:
             if len(node.symbol) == 1:
@@ -178,22 +178,38 @@ class HuffmanTree:
             self._traverseDown(node.left, val)
             self._traverseDown(node.right, val)
 
-    def _traverseUp(self):
-        # FIXME: i dont know but this does not work
+    def _traverseUp(self) -> Node:
         if self.header == '':
             return None
+
+        val = self.header[0]
+        self.header = self.header[1:]
+
+        if val != self.DEFAULT_VALUE_NODE and val != self.DEFAULT_VALUE :
+            #self.header = self.header[2:]
+            return Node(0, val)
         else:
-            node = Node(0, 'aa')
-            if self.header[0] == self.DEFAULT_VALUE_NODE:
-                node.symbol = self.DEFAULT_VALUE_NODE * 3    
-            elif self.header[0] == self.DEFAULT_VALUE:
-                node.symbol = self.DEFAULT_VALUE * 3
-            else:
-                node.symbol = self.header[0]
-            self.header = self.header[1:]
+            node = Node(0, val*2)
             node.left = self._traverseUp()
             node.right = self._traverseUp()
             return node
+
+        #print(self.header)
+        # FIXME: i dont know but this does not work
+        # if self.header == '':
+        #     return None
+        # else:
+        #     node = Node(0, 'aa')
+        #     if self.header[0] == self.DEFAULT_VALUE_NODE:
+        #         node.symbol = self.DEFAULT_VALUE_NODE * 3    
+        #     elif self.header[0] == self.DEFAULT_VALUE:
+        #         node.symbol = self.DEFAULT_VALUE * 3
+        #     else:
+        #         node.symbol = self.header[0]
+        #     self.header = self.header[1:]
+        #     node.left = self._traverseUp()
+        #     node.right = self._traverseUp()
+        #     return node
 
     def _readEncrypted(self, fileName: str) -> bytes:
         logger.info("Reading Encrypted File")
