@@ -19,8 +19,6 @@ class HuffmanTree:
         self.nodes = []
         self.encoded = {}
         self.DEFAULT_VALUE_NODE = chr(5)
-        self.DEFAULT_VALUE = chr(6)
-        self.HEADER_ESCAPE = chr(7)
         self.header = ''
 
         if values:
@@ -134,7 +132,9 @@ class HuffmanTree:
         with open(target, 'wb') as file:
             logger.info("Writing Header")
             h = (self._createHeader().encode())
-            print(h)
+
+            logger.info("Header")
+            logger.info(h)
             
             file.write((len(h).to_bytes(4, byteorder='little')))
 
@@ -145,8 +145,6 @@ class HuffmanTree:
             file.write(pad)
             
             file.write(h)
-
-            #file.write(self._toBytes(p.encode()))
 
             encrypted += (8 - len(encrypted) % 8) * '1'
             encrypted = self._toBytes(encrypted)
@@ -161,18 +159,11 @@ class HuffmanTree:
 
         self.header = ''
         self._traverseDown(self.root)
-        #self.header += self.HEADER_ESCAPE
-
-        # encoded = ''
-        # for c in self.header:
-        #     encoded += "{0:b}".format(ord(c)).zfill(8)
-
-        # return encoded
+        
         return self.header
         
     def _traverseDown(self, node: Node, val='') -> str:
         if node is None:
-            #self.header += self.DEFAULT_VALUE
             return
         else:
             if len(node.symbol) == 1:
@@ -190,8 +181,7 @@ class HuffmanTree:
         val = self.header[0]
         self.header = self.header[1:]
 
-        if val != self.DEFAULT_VALUE_NODE and val != self.DEFAULT_VALUE :
-            #self.header = self.header[2:]
+        if val != self.DEFAULT_VALUE_NODE:
             return Node(0, val)
         else:
             node = Node(0, val*2)
@@ -238,14 +228,10 @@ class HuffmanTree:
 
         self.header = data[5:4+h+1]
         self.header = self.header.decode("utf-8")
-        print(self.header)
-        # for b in data:
-        #     c = chr(b)
-        #     if c == self.HEADER_ESCAPE:
-        #         break
-        #     self.header += c
         
-        #self.header = self.header[1:]
+        logger.info("Header")
+        logger.info(self.header)
+        
         pad = data[4]
 
         logger.info("Header len: " + str(h) + " Padding: " + str(pad))
@@ -256,14 +242,6 @@ class HuffmanTree:
         self.encode()
 
         self.printEncoded()
-
-        # for b in data:
-        #     c = chr(b)
-        #     if c == self.HEADER_ESCAPE:
-        #         break
-        #     pad += c
-        #data = data[pad:]
-        #print(data)
 
         logger.info("Decrypting Encoded Chars")
         decoded = self._reverse_encoding(data, pad)
@@ -313,5 +291,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    # Test runs
     # encodeFile('test.txt', 'test.huff')
     # decodeFile('test.huff', 'test.decrypted')
+    # compareLength('test.txt', 'test.huff')
